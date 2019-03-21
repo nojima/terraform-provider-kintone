@@ -27,6 +27,9 @@ var fieldFactories = map[string]fieldFactory{
 	"TIME": func(code kintone.FieldCode, label string, fieldMap map[string]interface{}) (kintone.Field, error) {
 		return field.NewTime(code, label), nil
 	},
+	"FILE": func(code kintone.FieldCode, label string, fieldMap map[string]interface{}) (kintone.Field, error) {
+		return field.NewFile(code, label), nil
+	},
 }
 
 func validFieldTypes() []string {

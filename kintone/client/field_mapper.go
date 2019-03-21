@@ -23,6 +23,8 @@ func (m *fieldPropertyMapper) PropertyToField(p *raw_client.FieldProperty) (kint
 		return field.NewDate(kintone.FieldCode(p.Code), p.Label), nil
 	case "TIME":
 		return field.NewTime(kintone.FieldCode(p.Code), p.Label), nil
+	case "FILE":
+		return field.NewFile(kintone.FieldCode(p.Code), p.Label), nil
 	default:
 		return nil, errors.Errorf("unknown field type: %s", p.Type)
 	}
