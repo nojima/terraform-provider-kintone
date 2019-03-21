@@ -8,7 +8,7 @@ import (
 
 type fieldFactory func(code kintone.FieldCode, label string, fieldMap map[string]interface{}) (kintone.Field, error)
 
-var fieldFactories = map[string]fieldFactory {
+var fieldFactories = map[string]fieldFactory{
 	"SINGLE_LINE_TEXT": func(code kintone.FieldCode, label string, fieldMap map[string]interface{}) (kintone.Field, error) {
 		return field.NewSingleLineText(code, label), nil
 	},
@@ -23,6 +23,9 @@ var fieldFactories = map[string]fieldFactory {
 	},
 	"DATE": func(code kintone.FieldCode, label string, fieldMap map[string]interface{}) (kintone.Field, error) {
 		return field.NewDate(code, label), nil
+	},
+	"TIME": func(code kintone.FieldCode, label string, fieldMap map[string]interface{}) (kintone.Field, error) {
+		return field.NewTime(code, label), nil
 	},
 }
 

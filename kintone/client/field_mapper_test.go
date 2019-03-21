@@ -53,6 +53,14 @@ func TestFieldPropertyMapper(t *testing.T) {
 			},
 		},
 		{
+			title: "TIME",
+			property: raw_client.FieldProperty{
+				Type:  "TIME",
+				Code:  "foobar",
+				Label: "🍣🍺",
+			},
+		},
+		{
 			title: "Unknown type",
 			property: raw_client.FieldProperty{
 				Type:  "ABCDEFG",
