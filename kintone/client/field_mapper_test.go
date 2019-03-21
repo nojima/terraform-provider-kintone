@@ -37,6 +37,14 @@ func TestFieldPropertyMapper(t *testing.T) {
 			},
 		},
 		{
+			title: "RICH_TEXT",
+			property: raw_client.FieldProperty{
+				Type:  "RICH_TEXT",
+				Code:  "foobar",
+				Label: "🍣🍺",
+			},
+		},
+		{
 			title: "Unknown type",
 			property: raw_client.FieldProperty{
 				Type:  "ABCDEFG",

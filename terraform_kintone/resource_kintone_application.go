@@ -57,11 +57,7 @@ func resourceKintoneApplication() *schema.Resource {
 						"type": {
 							Type:     schema.TypeString,
 							Required: true,
-							ValidateFunc: validation.StringInSlice([]string{
-								kintone.FieldSingleLineText,
-								kintone.FieldNumber,
-								kintone.FieldMultiLineText,
-							}, false),
+							ValidateFunc: validation.StringInSlice(validFieldTypes(), false),
 						},
 					},
 				},

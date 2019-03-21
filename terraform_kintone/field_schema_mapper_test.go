@@ -36,6 +36,14 @@ func TestFieldSchemaMapper(t *testing.T) {
 			},
 		},
 		{
+			title: "RICH_TEXT",
+			fieldMap: map[string]interface{}{
+				"type":  "RICH_TEXT",
+				"code":  "foobar",
+				"label": "🍣🍺",
+			},
+		},
+		{
 			title: "Unknown type",
 			fieldMap: map[string]interface{}{
 				"type":  "ABCDEFG",

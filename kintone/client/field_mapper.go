@@ -15,6 +15,8 @@ func (m *fieldPropertyMapper) PropertyToField(p *raw_client.FieldProperty) (kint
 		return field.NewSingleLineText(kintone.FieldCode(p.Code), p.Label), nil
 	case "MULTI_LINE_TEXT":
 		return field.NewMultiLineText(kintone.FieldCode(p.Code), p.Label), nil
+	case "RICH_TEXT":
+		return field.NewRichText(kintone.FieldCode(p.Code), p.Label), nil
 	case "NUMBER":
 		return field.NewNumber(kintone.FieldCode(p.Code), p.Label), nil
 	default:

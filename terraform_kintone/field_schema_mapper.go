@@ -6,22 +6,44 @@ import (
 	"github.com/pkg/errors"
 )
 
+type fieldFactory func(code kintone.FieldCode, label string, fieldMap map[string]interface{}) (kintone.Field, error)
+
+var fieldFactories = map[string]fieldFactory {
+	"SINGLE_LINE_TEXT": func(code kintone.FieldCode, label string, fieldMap map[string]interface{}) (kintone.Field, error) {
+		return field.NewSingleLineText(code, label), nil
+	},
+	"MULTI_LINE_TEXT": func(code kintone.FieldCode, label string, fieldMap map[string]interface{}) (kintone.Field, error) {
+		return field.NewMultiLineText(code, label), nil
+	},
+	"RICH_TEXT": func(code kintone.FieldCode, label string, fieldMap map[string]interface{}) (kintone.Field, error) {
+		return field.NewRichText(code, label), nil
+	},
+	"NUMBER": func(code kintone.FieldCode, label string, fieldMap map[string]interface{}) (kintone.Field, error) {
+		return field.NewNumber(code, label), nil
+	},
+}
+
+func validFieldTypes() []string {
+	var fieldTypes []string
+	for fieldType := range fieldFactories {
+		fieldTypes = append(fieldTypes, fieldType)
+	}
+	return fieldTypes
+}
+
 type fieldSchemaMapper struct{}
 
 func (m *fieldSchemaMapper) SchemaToField(fieldMap map[string]interface{}) (kintone.Field, error) {
-	fieldType := kintone.FieldType(fieldMap["type"].(string))
+	fieldType := fieldMap["type"].(string)
 	code := kintone.FieldCode(fieldMap["code"].(string))
 	label := fieldMap["label"].(string)
-	switch fieldType {
-	case "SINGLE_LINE_TEXT":
-		return field.NewSingleLineText(code, label), nil
-	case "MULTI_LINE_TEXT":
-		return field.NewMultiLineText(code, label), nil
-	case "NUMBER":
-		return field.NewNumber(code, label), nil
-	default:
+
+	factory, ok := fieldFactories[fieldType]
+	if !ok {
 		return nil, errors.Errorf("unknown field type: %s", fieldType)
 	}
+
+	return factory(code, label, fieldMap)
 }
 
 func (m *fieldSchemaMapper) FieldToSchema(f kintone.Field) map[string]interface{} {
